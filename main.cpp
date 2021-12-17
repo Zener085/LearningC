@@ -1,18 +1,17 @@
 #include <iostream>
 #include <string>
 
-int getCount(const std::string& inputStr){
-    int num_vowels = std::count(inputStr.begin(), inputStr.end(), 'a');
-    num_vowels += std::count(inputStr.begin(), inputStr.end(), 'e');
-    num_vowels += std::count(inputStr.begin(), inputStr.end(), 'u');
-    num_vowels += std::count(inputStr.begin(), inputStr.end(), 'i');
-    num_vowels += std::count(inputStr.begin(), inputStr.end(), 'o');
-    return num_vowels;
+std::string get_middle(const std::string& str) {
+    if ((str.length() % 2) == 0)
+        return str.substr(str.length() / 2 - 1, 2);
+
+    else
+        return str.substr(str.length() / 2, 1);
 }
 
 int main() {
     std::string f;
     getline(std::cin, f);
-    std::cout << getCount(f) << std::endl;
+    std::cout << get_middle(f) << std::endl;
     return 0;
 }
