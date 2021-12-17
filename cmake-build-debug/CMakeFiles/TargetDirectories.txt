@@ -1,0 +1,3 @@
+C:/Users/zener/Documents/GitHub/LearningC/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/zener/Documents/GitHub/LearningC/cmake-build-debug/CMakeFiles/LearningC.dir
+C:/Users/zener/Documents/GitHub/LearningC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
