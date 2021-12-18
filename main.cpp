@@ -1,17 +1,21 @@
 #include <iostream>
-#include <string>
 
-std::string get_middle(const std::string& str) {
-    if ((str.length() % 2) == 0)
-        return str.substr(str.length() / 2 - 1, 2);
+/// My algorithm
+int centuryFromYear(int year) {
+    if (year % 100 != 0)
+        return year / 100 + 1;
 
-    else
-        return str.substr(str.length() / 2, 1);
+    return year / 100;
+}
+
+/// The best algorithm from answers
+int centuryFromYearEdited(int year) {
+    return (year + 99) / 100;
 }
 
 int main() {
-    std::string f;
-    getline(std::cin, f);
-    std::cout << get_middle(f) << std::endl;
+    int a;
+    std::cin >> a;
+    std::cout << centuryFromYear(a) << centuryFromYearEdited(a) << std::endl;
     return 0;
 }
