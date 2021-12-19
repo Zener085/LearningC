@@ -1,4 +1,4 @@
-"C:\Program Files\JetBrains\CLion 2021.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - NMake Makefiles" C:\Users\zener\Documents\GitHub\LearningC
+"C:\Program Files\JetBrains\CLion 2021.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - NMake Makefiles" C:\Users\zener\Documents\GitHub\LearningC
 -- The C compiler identification is MSVC 19.28.29337.0
 -- The CXX compiler identification is MSVC 19.28.29337.0
 -- Detecting C compiler ABI info
