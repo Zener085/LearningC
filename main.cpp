@@ -1,18 +1,22 @@
 #include <iostream>
+#include <vector>
 
-int basicOp(char op, int val1, int val2) {
-    switch (op) {
-        case '+': return val1 + val2;
-        case '-': return val1 - val2;
-        case '*': return val1 * val2;
-        default: return val1 / val2;
-    }
+/// The best solution from CodeWars
+std::vector<int> maps(const std::vector<int> & values) {
+    std::vector<int> result;
+    for(int a:values)
+        result.push_back(a*2);
+
+    return result;
 }
 
 int main() {
-    char c;
-    int a, b;
-    std::cin >> c >> a >> b;
-    std::cout << basicOp(c, a, b) << std::endl;
+    std::vector<int> numbers;
+    int c;
+    do {
+        std::cin >> c;
+        numbers.push_back(c);
+    } while (c != 0);
+    std::cout << maps(numbers)[0] << std::endl;
     return 0;
 }
