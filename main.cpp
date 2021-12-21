@@ -1,22 +1,24 @@
 #include <iostream>
 #include <vector>
 
-/// The best solution from CodeWars
-std::vector<int> maps(const std::vector<int> & values) {
-    std::vector<int> result;
-    for(int a:values)
-        result.push_back(a*2);
-
-    return result;
+/// My own solution from CodeWars
+void maps(std::vector<int> & values) {
+    for (int & value : values)
+        value = value * 2;
 }
 
 int main() {
     std::vector<int> numbers;
     int c;
+
     do {
         std::cin >> c;
         numbers.push_back(c);
     } while (c != 0);
-    std::cout << maps(numbers)[0] << std::endl;
+
+    maps(numbers);
+
+    for (int number : numbers)
+        std::cout << number << " ";
     return 0;
 }
