@@ -1,24 +1,25 @@
 #include <iostream>
-#include <vector>
 
-/// My own solution from CodeWars
-void maps(std::vector<int> & values) {
-    for (int & value : values)
-        value = value * 2;
+void insertion_sort(int* a, int n){
+    int key, j, i;
+    for (i = 1; i < n; i++){
+        key = a[i];
+        j = i - 1;
+        while (j >= 0 and a[j] > key){
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
+    }
 }
 
 int main() {
-    std::vector<int> numbers;
-    int c;
-
-    do {
-        std::cin >> c;
-        numbers.push_back(c);
-    } while (c != 0);
-
-    maps(numbers);
-
-    for (int number : numbers)
-        std::cout << number << " ";
-    return 0;
+    int n;
+    std::cin >> n;
+    int* arr = new int[n];
+    for (int i = 0; i < n; i++)
+        std::cin >> arr[i];
+    insertion_sort(arr, n);
+    for (int i = 0; i < n; i++)
+        std::cout << arr[i] << " ";
 }
