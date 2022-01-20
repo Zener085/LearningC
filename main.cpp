@@ -1,15 +1,15 @@
 #include <iostream>
 
-void selection_sort(int a[], int n){
-    int i, j, min_idx;
-
-    for (i = 0; i < n - 1; i++) {
-        min_idx = i;
-        for (j = i + 1; j < n; j++)
-            if (a[j] < a[min_idx])
-                min_idx = j;
-
-        std::swap(a[min_idx], a[i]);
+void insertion_sort(int* a, int n){
+    int key, j, i;
+    for (i = 1; i < n; i++){
+        key = a[i];
+        j = i - 1;
+        while (j >= 0 and a[j] > key){
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
     }
 }
 
@@ -19,9 +19,7 @@ int main() {
     int* arr = new int[n];
     for (int i = 0; i < n; i++)
         std::cin >> arr[i];
-    selection_sort(arr, n);
+    insertion_sort(arr, n);
     for (int i = 0; i < n; i++)
         std::cout << arr[i] << " ";
-
-    return 0;
 }
