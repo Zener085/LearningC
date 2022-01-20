@@ -1,24 +1,27 @@
 #include <iostream>
-#include <vector>
 
-/// My own solution from CodeWars
-void maps(std::vector<int> & values) {
-    for (int & value : values)
-        value = value * 2;
+void selection_sort(int a[], int n){
+    int i, j, min_idx;
+
+    for (i = 0; i < n - 1; i++) {
+        min_idx = i;
+        for (j = i + 1; j < n; j++)
+            if (a[j] < a[min_idx])
+                min_idx = j;
+
+        std::swap(a[min_idx], a[i]);
+    }
 }
 
 int main() {
-    std::vector<int> numbers;
-    int c;
+    int n;
+    std::cin >> n;
+    int* arr = new int[n];
+    for (int i = 0; i < n; i++)
+        std::cin >> arr[i];
+    selection_sort(arr, n);
+    for (int i = 0; i < n; i++)
+        std::cout << arr[i] << " ";
 
-    do {
-        std::cin >> c;
-        numbers.push_back(c);
-    } while (c != 0);
-
-    maps(numbers);
-
-    for (int number : numbers)
-        std::cout << number << " ";
     return 0;
 }
