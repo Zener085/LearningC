@@ -82,7 +82,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/zener/Documents/GitHub/LearningC/FrequencyAnalysis.h">
+			<Option target="LearningC"/>
+		</Unit>
 		<Unit filename="C:/Users/zener/Documents/GitHub/LearningC/main.cpp">
+			<Option target="LearningC"/>
+		</Unit>
+		<Unit filename="C:/Users/zener/Documents/GitHub/LearningC/shuntingYardAlgorithm.h">
 			<Option target="LearningC"/>
 		</Unit>
 		<Unit filename="C:/Users/zener/Documents/GitHub/LearningC/CMakeLists.txt">
