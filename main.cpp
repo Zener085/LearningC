@@ -1,7 +1,5 @@
 #include <iostream>
 
-using namespace std;
-
 namespace pyramid {
     void draw(const int &height) {
         for (int i = 2; i <= height * 2; i += 2) {
@@ -17,7 +15,7 @@ namespace pyramid {
 
 int main() {
     int a;
-    cin >> a;
+    std::cin >> a;
     pyramid::draw(a);
 
     return 0;
