@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <limits>
 
 /// calculate actual size of array
 ///@param arr array of numbers, bad array
@@ -21,7 +20,7 @@ int actual_size(const int* (arr), const int n) {
 ///@param str string with numbers
 ///@param size (reference) size of string
 ///@return array of numbers
-int* parse_string(const std::string str, int& size) {
+int* parse_string(const std::string& str, int& size) {
     int* long_arr = new int[size]; // temporal array, save only numbers, but with large size, call it bad array
     int sign = 1; // sign of number which is needed to store
     int k = 0; // index in temporal array
@@ -50,16 +49,16 @@ int* parse_string(const std::string str, int& size) {
 ///@param arr string from input.txt file
 ///@return maximum sum from array
 int max_sum_subarray(const std::string& arr) {
-    int sum = INT_MIN, temp_sum = 0; // maximum sum and temporal sum
+    int sum, current_sum; // maximum sum and current sum
 
-    int size = arr.length(); // size of array
+    int size = (int) arr.length(); // size of array
     int* nums = parse_string(arr, size); // parsed array of numbers
 
-    // find the maximum sum
-    for (int i = 0; i < size; i++) {
-        temp_sum += nums[i];
-        if (sum < temp_sum) sum = temp_sum;
-        if (temp_sum < 0) temp_sum = 0;
+    sum = current_sum = nums[0]; // take first element from array
+
+    for (int i = 1; i < size; i++) { // find maximum sum
+        current_sum = std::max(nums[i], current_sum + nums[i]);
+        sum = std::max(sum, current_sum);
     }
 
     return sum;
