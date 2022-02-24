@@ -1,24 +1,27 @@
 #include <iostream>
 #include <string>
-#include <vector>
+#include <fstream>
 
+/// calculate actual size of array
 int actual_size(const int* (arr), const int n) {
-    int size = 0;
+    int size = 0; // actual size
 
     for (int i = 0; i < n; i++) {
-        if (arr[i] != 0) size++;
+        if (arr[i] != 0) size++; // increase size till finding first 0 in array
     }
 
     return size;
 }
 
+/// parsing string to create array of numbers
 int* parse_string(const std::string str, int& size) {
-    int* long_arr = new int[size];
-    int sign = 1;
-    int k = 0;
+    int* long_arr = new int[size]; // temporal array, save only numbers, but with large size
+    int sign = 1; // sign of number which is needed to store
+    int k = 0; // index in temporal array
 
-    for (int i = 0; i < str.length(); i++) long_arr[i] = 0;
+    for (int i = 0; i < str.length(); i++) long_arr[i] = 0; // make 0s to all array
 
+    // take symbols one by one and store numbers from the string
     for (char c : str) {
         if (c == '-') sign = -1;
         if ('0' <= c && c <= '9') {
@@ -27,39 +30,49 @@ int* parse_string(const std::string str, int& size) {
         }
     }
 
-    size = actual_size(long_arr, (int) str.length());
-    int* right_arr = new int[size];
+    size = actual_size(long_arr, (int) str.length()); // calculate normal size of array
+    int* right_arr = new int[size]; // create array with good size
 
-    for (int i = 0; i < size; i++) right_arr[i] = long_arr[i];
+    for (int i = 0; i < size; i++) right_arr[i] = long_arr[i]; // copy elements from the bad array to the good array
 
     return right_arr;
 }
 
 
-int max_sum_subarray(const std::string arr) {
-    int sum = 0;
-    int* nums = parse_string(arr, sum);
+/// find maximum sum from numbers array
+int max_sum_subarray(const std::string& arr) {
+    int sum = INT_MIN, temp_sum = 0; // maximum sum and temporal sum
 
-//    code here
+    int size = arr.length(); // size of array
+    int* nums = parse_string(arr, size); // parsed array of numbers
+
+    // find the maximum sum
+    for (int i = 0; i < size; i++) {
+        temp_sum += nums[i];
+        if (sum < temp_sum) sum = temp_sum;
+        if (temp_sum < 0) temp_sum = 0;
+    }
 
     return sum;
 }
 
+/// read string from input.txt and write maximum sum to the output.txt
+void in_out_file() {
+    std::ifstream input; // input file
+    std::ofstream output; // output file
+    std::string numbers; // string of numbers
+
+    input.open("input.txt");
+    std::getline(input, numbers); // read string of numbers
+    input.close();
+
+    output.open("output.txt");
+    output << max_sum_subarray(numbers); // write maximum sum of numbers array
+    output.close();
+}
+
 int main() {
-    std::string arr;
-    int size;
-    int* test;
-
-    std::getline(std::cin, arr);
-
-    size = arr.length();
-    test = parse_string(arr, size);
-
-    for (int i = 0; i < size; i++) {
-        std::cout << test[i] << " ";
-    }
-
-//    std::cout << max_sum_subarray(arr) << std::endl;
+    in_out_file();
 
     return 0;
 }
