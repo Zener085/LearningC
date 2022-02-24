@@ -1,37 +1,42 @@
 #include <iostream>
 
-#define ll long long
+int find_max(int arr[], int size) {
+    int value = 0;
 
-namespace fibonacci {
-//    ll easy_find(const ll& number) {
-//        if (number <= 1) return number;
-//        return easy_find(number - 1) + easy_find(number - 2);
-//    }
+    for (int i = 0; i < size; i++)
+        value = value < arr[i] ? arr[i] : value;
 
-    ll numbers[100000] = {0};
+    return value;
+}
 
-    ll find(const ll& number) {
-        if (number == 0)
-            return 0;
-        if (number == 1 || number == 2)
-            return (numbers[number] = 1);
+void counting_sort(int size, int* arr) {
+    int value = find_max(arr, size);
+    int* count = new int[value];
 
-        if (numbers[number])
-            return numbers[number];
+    for (int i = 0; i < size; i++)
+        count[arr[i]]++;
 
-        ll k = (number & 1)? (number + 1) / 2 : number / 2;
-
-        numbers[number] = (number & 1)
-                        ? (find(k)*find(k) + find(k-1)*find(k-1))
-                        : (2*find(k-1) + find(k))*find(k);
-
-        return numbers[number];
+    int act = 0;
+    for (int i = 0; i < value; i++) {
+        for (int j = 0; j < count[i]; j++) {
+            arr[act++] = i;
+        }
     }
 }
 
 int main() {
-    ll a;
-    std::cin >> a;
-    std::cout << fibonacci::find(a);
+    int number;
+    std::cin >> number;
+
+    int* array = new int[number];
+
+    for (int i = 0; i < number; i++)
+        std::cin >> array[i];
+
+    counting_sort(number, array);
+
+    for (int i = 0; i < number; i++)
+        std::cout << array[i] << " ";
+
     return 0;
 }
