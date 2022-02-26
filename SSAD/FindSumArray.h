@@ -68,7 +68,7 @@ int max_sum_subarray(const std::string& arr) {
 }
 
 /// read string from input.txt and write maximum sum to the output.txt
-[[maybe_unused]] void in_out_file() {
+[[maybe_unused]] [[maybe_unused]] void in_out_file() {
     std::ifstream input; // input file
     std::ofstream output; // output file
     std::string numbers; // string of numbers

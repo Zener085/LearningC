@@ -1,85 +1,102 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <vector>
-#include <unordered_map>
 
-///Creator vector of words from one string, taken from input file
-///@param str string with words
-///@return vector of words
-std::vector<std::string> parse_string_to_vector(const std::string& str){
-    std::vector<std::string> words; // vector of words
-    std::string word; // one word
+struct Node {
+    int value;
+    Node* next;
+};
 
-    for (auto c : str) {
-        if (c == ' ') { // if word is ended
-            words.push_back(word);
-            word = "";
-            continue;
+Node* swapPairs(Node* head) {
+    if (head == nullptr) return nullptr;
+    if (head -> next == nullptr) return head;
+
+    Node* prev = nullptr;
+    Node* current = head;
+    Node* next_ = head -> next;
+
+    while (next_ != nullptr) {
+        current -> next = next_ -> next;
+        next_ -> next = current;
+
+        if (prev == nullptr) {
+            prev = next_;
+            head = prev;
+            prev = prev -> next;
+        } else {
+            prev -> next = next_;
+            prev = prev -> next -> next;
         }
-        word += c; // else increase word
-    }
-    words.push_back(word); // add the last word
 
-    return words;
+        current = current -> next;
+
+        if (current == nullptr) break;
+
+        next_ = next_ -> next -> next -> next;
+    }
+    return head;
 }
 
-/// Create and return vector of indices, where there is substring starts
-///@param str main string
-///@return vector of indices, where each substring starts
-std::vector<int> substring(const std::string& str, const std::string& words_) {
-    std::vector<std::string> words = parse_string_to_vector(words_); // vector of all words the program has to find
-    std::vector<int> result; // vector of indices of starting substring
-
-    // size of one word, number of words in vector words and size of all substring
-    int size = (int) words[0].size(), count = (int) words.size(), all_size = size * count;
-
-    if (all_size > str.size()) // if the main string is smaller than size of all words in vector
-        return result;
-
-    std::unordered_map<std::string, int> hash_words; // stores words and indices of them
-
-    for (int i = 0; i < count; i++) // initialize all words indices in hash map
-        hash_words[words[i]]++;
-
-    for (int i = 0; i <= str.size() - all_size; i++) {
-        // create temp variables
-        std::unordered_map<std::string, int> temp_hash(hash_words); // hash map
-        int j = i, temp_count = count; // index of loop and number of words
-
-        while (j < i + all_size) {
-            std::string word = str.substr(j, size); // decrease size of string to 1 word
-
-            if (hash_words.find(word) == hash_words.end() || temp_hash[word] == 0) // if we do not find word
-                break;
+int* parse_string_to_nodes(const std::string& str, int& size_) {
+    int* arr = new int[str.size() / 2];
+    int k = 0, size = 0;
+    char temp = ' ';
+    for (char c : str) {
+        if ('0' <= c && c <= '9') {
+            if ('0' <= temp && temp <= '9')
+                arr[k] = arr[k] * 10 + (int) (c - '0');
             else {
-                --temp_hash[word]; // else decrease for this word calculations
-                --temp_count;
+                arr[k] = (int) (c - '0');
+                size++;
             }
-            j += size;
         }
-        if (temp_count == 0) // if the program found all words in substring
-            result.push_back(i); // store index of start the iteration calculation
+        else k++;
+        temp = c;
     }
-    return result;
+    size_ = ++k;
+    return arr;
 }
 
-/// read string from input.txt and write maximum sum to the output.txt
+void initNode(int val, Node* (&head)){
+    head -> value = val;
+    head -> next = nullptr;
+}
+
+void addNode(int val, Node* (&head)){
+    Node *nextNode = new Node;
+    nextNode -> value = val;
+    nextNode -> next = head;
+    head = nextNode;
+}
+
+/// read string from input.txt and write indices to the output.txt
 void in_out_file() {
     std::ifstream input; // input file
     std::ofstream output; // output file
-    std::string str, null_str, words; // main string, for skipping string and string with words
+    std::string str; // main string, for skipping string and string with words
+    Node* head = new Node;
+    int* nums;
+    int size;
 
     input.open("input.txt");
-    std::getline(input, str); // read main string
-    std::getline(input, null_str); // just skip one string
-    std::getline(input, words); // read words that it has to find
+    std::getline(input, str);
     input.close();
 
+    nums = parse_string_to_nodes(str, size);
+    initNode(nums[size - 1], head);
+
+    for (int i = size - 2; i >= 0; i--) {
+        addNode(nums[i], head);
+    }
+
+    head = swapPairs(head);
+
     output.open("output.txt");
-    std::vector<int> indices = substring(str, words);
-    for (int index : indices) // write all indices
-        output << index << " ";
+    while (head != nullptr) {
+        output << head -> value << " ";
+        head = head -> next;
+    }
+//    output << head -> value << " ";
     output.close();
 }
 

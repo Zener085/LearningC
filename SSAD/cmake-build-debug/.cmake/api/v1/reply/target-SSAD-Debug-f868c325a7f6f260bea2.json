@@ -99,7 +99,8 @@
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				1
+				1,
+				2
 			]
 		}
 	],
@@ -114,6 +115,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "FindSumArray.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "FindSubstrings.h",
 			"sourceGroupIndex" : 1
 		}
 	],
